@@ -1,0 +1,14 @@
+Primeiramente deve criar abase de dados que esta localizada no seguinte local:
+
+Projeto Avaliacao\script.sql
+
+########################## Configurar a connectionString no projeto #################################
+
+Deve substitui o connection string de acordo com o nova base criada. A tag "ConnectionStrings" esta no seguinte local:
+
+Projeto Avaliacao\WebApp\appsettings.json
+ 
+
+ "ConnectionStrings": {
+    "Default": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=dbAval;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  }
