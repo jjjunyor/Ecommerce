@@ -1,4 +1,5 @@
 ﻿using AVAL.Infrastructure.EntityConfig;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using WebApp.Models;
 
 namespace AVAL.Infrastructure.Data
 {
-   public class AvalContext:DbContext
+   public class AvalContext: IdentityDbContext
     {
         public AvalContext(DbContextOptions<AvalContext> options):base(options)
         {
@@ -23,8 +24,10 @@ namespace AVAL.Infrastructure.Data
         {
 
             modelBuilder.ApplyConfiguration(new ContaMap());
+            modelBuilder.ApplyConfiguration(new ProdutoMap());
+            base.OnModelCreating(modelBuilder);
 
-          //  base.OnModelCreating(modelBuilder);
+            //  base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<Conta>().ToTable("tblConta");
 
             //modelBuilder.Entity<Conta>().HasKey(t => t.Id);

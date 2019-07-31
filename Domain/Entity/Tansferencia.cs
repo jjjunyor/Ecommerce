@@ -16,7 +16,7 @@ namespace Domain.Entity
         [DataMember]
         public string TipoTransferencia { get; set; }
         [DataMember]
-        public decimal Valor { get; set; }
+        public double Valor { get; set; }
 
     }
 

@@ -4,6 +4,7 @@ using Domain.Interface.Services;
 using Domain.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +27,23 @@ namespace WebApp
 
             services.AddDbContext<AVAL.Infrastructure.Data.AvalContext>(options =>
               options.UseSqlServer(connectionString)
-          );
+            );
+            //feito para gerar as tabelas identity.
+            //services.AddDbContext<AVAL.Infrastructure.Data.TokenContext>(options =>
+            //    options.UseSqlServer(connectionString)
+            //);
+
+        //    services.AddDefaultIdentity<IdentityUser>()
+        //.AddDefaultUI(UIFramework.Bootstrap4)
+        //.AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
             services.AddTransient<IContaService, ContaService>();
             services.AddTransient<IContaRepository, ContaRepository>();
+
+            services.AddTransient<IProdutoService, ProdutoService>();
+            services.AddTransient<IProdutoRepository, ProdutoRepository>();
 
             services.AddSwaggerGen(c =>
             {

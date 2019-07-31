@@ -13,7 +13,7 @@ namespace WebApp.Models
         [DataMember]
         public string NumeroConta { get; set; }
         [DataMember]
-        public decimal Saldo { get; set; }
+        public double Saldo { get; set; }
     }
     
 
