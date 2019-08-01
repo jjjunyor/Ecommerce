@@ -22,18 +22,12 @@ namespace AVAL.Infrastructure.Data
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfiguration(new ContaMap());
             modelBuilder.ApplyConfiguration(new ProdutoMap());
+            modelBuilder.ApplyConfiguration(new SegurancaMap());
+
             base.OnModelCreating(modelBuilder);
 
-            //  base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<Conta>().ToTable("tblConta");
-
-            //modelBuilder.Entity<Conta>().HasKey(t => t.Id);
-
-            //modelBuilder.Entity<TransfHist>().ToTable("tblTrasnfHist");
-            //modelBuilder.Entity<Conta>().HasKey(t => t.Id);
         }
     }
 }

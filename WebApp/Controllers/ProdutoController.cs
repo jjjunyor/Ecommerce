@@ -10,15 +10,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApp.Controllers
 {
     [Produces("application/json")]
-    [Route("Produto")]
-    public class ProdutoController : Controller
+    [Route("api/produto")]
+    public class ProdutoController : APIControllerBaseAuth
     {
         private readonly IProdutoService _produtoService;
+        private readonly ISegurancaService _segurancaService;
 
-        public ProdutoController(IProdutoService produtoService)
+        public ProdutoController(IProdutoService produtoService, ISegurancaService segurancaService)
         {
             _produtoService = produtoService;
+            _segurancaService = segurancaService;
+
+
         }
+   
         /// <summary>
         /// Lista todos os produtos.
         /// </summary>
@@ -29,6 +34,10 @@ namespace WebApp.Controllers
         {
             try
             {
+
+                if (!Util.ValidarToken(_segurancaService, Request))
+                    return StatusCode(StatusCodes.Status203NonAuthoritative);
+
                 var produtos = _produtoService.Listar();
                 return StatusCode(StatusCodes.Status200OK, produtos);
             }

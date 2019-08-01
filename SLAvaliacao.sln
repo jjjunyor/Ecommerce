@@ -13,7 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - infrastructure", "3 - infrastructure", "{F87D236C-8EE9-491E-B1E5-17BBD186E66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVAL.Infrastructure", "AVAL.Infrastructure\AVAL.Infrastructure.csproj", "{DAC5B9D7-8583-4208-9B5B-9D81A87EADA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVAL.Infrastructure", "AVAL.Infrastructure\AVAL.Infrastructure.csproj", "{DAC5B9D7-8583-4208-9B5B-9D81A87EADA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{40FEAE10-6D82-46DA-9A47-2ECD2B6A14AD}"
+	ProjectSection(SolutionItems) = preProject
+		gerabase.sql = gerabase.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

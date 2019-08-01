@@ -12,59 +12,92 @@ using Swashbuckle.AspNetCore.Swagger;
 
 
 namespace WebApp
-{
+{ 
+    /// <summary>
+    /// Classe de configuração raiz.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// definição da variavel global de configuração.
+        /// </summary>
         public IConfiguration Configuration { get; }
+        /// <summary>
+        /// Configuração principal.
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+        /// <summary>
+        /// COnfigura as interfaces e classes para serem utilizadas.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+        
+
             services.AddMvc();
+            
+
+            services.AddCors(options => { options.AddPolicy("AllowAllOrigins", b => { b.AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod(); }); });
+
             string connectionString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<AVAL.Infrastructure.Data.AvalContext>(options =>
               options.UseSqlServer(connectionString)
             );
-            //feito para gerar as tabelas identity.
-            //services.AddDbContext<AVAL.Infrastructure.Data.TokenContext>(options =>
-            //    options.UseSqlServer(connectionString)
-            //);
 
-        //    services.AddDefaultIdentity<IdentityUser>()
-        //.AddDefaultUI(UIFramework.Bootstrap4)
-        //.AddEntityFrameworkStores<ApplicationDbContext>();
-
-
-
+            services.AddTransient<ISegurancaService, SegurancaService>();
             services.AddTransient<IContaService, ContaService>();
             services.AddTransient<IContaRepository, ContaRepository>();
 
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
 
+            services.AddTransient<ISegurancaService, SegurancaService>();
+            services.AddTransient<ISegurancaRepository, SegurancaRepository>();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "API Banco Aval", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "API Produtos", Version = "v1" });
             });
-    
-          
+        
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// metodo chamado em tempo real - pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Banco Aval9");
+                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                app.UseSwaggerUI(c =>
+                {
+                    string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
+                    c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "API CorporateCore");
+                });
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseStaticFiles();
+            app.UseCors(option => option.AllowAnyOrigin()); ;
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
 
-            app.UseMvc();
         }
     }
 }
