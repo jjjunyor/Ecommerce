@@ -15,14 +15,14 @@ namespace AVAL.Infrastructure.Data
         {
 
         }
-        public DbSet <Conta> contas { get; set; }
+        
         /// <summary>
         /// Responsavel pela configuração do entityFrameWork
         /// </summary>
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ContaMap());
+           
             modelBuilder.ApplyConfiguration(new ProdutoMap());
             modelBuilder.ApplyConfiguration(new SegurancaMap());
 

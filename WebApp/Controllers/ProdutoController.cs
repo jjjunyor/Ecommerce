@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Interface.Services;
+﻿using Domain.Interface.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
 
 namespace WebApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/produto")]
-    public class ProdutoController : APIControllerBaseAuth
+    public class ProdutoController : Controller
     {
         private readonly IProdutoService _produtoService;
         private readonly ISegurancaService _segurancaService;
@@ -34,9 +31,9 @@ namespace WebApp.Controllers
         {
             try
             {
-
-                if (!Util.ValidarToken(_segurancaService, Request))
-                    return StatusCode(StatusCodes.Status203NonAuthoritative);
+                //TODO: habilitar validação do token
+              //  if (!Util.ValidarToken(_segurancaService, Request))
+               //     return StatusCode(StatusCodes.Status203NonAuthoritative);
 
                 var produtos = _produtoService.Listar();
                 return StatusCode(StatusCodes.Status200OK, produtos);

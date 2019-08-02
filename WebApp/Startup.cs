@@ -50,8 +50,7 @@ namespace WebApp
             );
 
             services.AddTransient<ISegurancaService, SegurancaService>();
-            services.AddTransient<IContaService, ContaService>();
-            services.AddTransient<IContaRepository, ContaRepository>();
+
 
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
