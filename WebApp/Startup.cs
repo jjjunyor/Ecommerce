@@ -80,7 +80,7 @@ namespace WebApp
                 app.UseSwaggerUI(c =>
                 {
                     string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-                    c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "API CorporateCore");
+                    c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "API PRODUTO");
                 });
             }
             else
@@ -88,7 +88,6 @@ namespace WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-            app.UseCors(option => option.AllowAnyOrigin()); ;
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

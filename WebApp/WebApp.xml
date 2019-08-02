@@ -4,11 +4,46 @@
         <name>WebApp</name>
     </assembly>
     <members>
-        <member name="M:WebApp.Repositories.ProdutoRepository.GetProdutos">
+        <member name="M:WebApp.Controllers.ProdutoController.Lista">
             <summary>
-            Buscar os Produtos
+            Lista todos os produtos.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:WebApp.Controllers.SegurancaController.GerarToken(Domain.Entity.Seguranca)">
+            <summary>
+            Lista todos os produtos.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebApp.Startup">
+            <summary>
+            Classe de configuração raiz.
+            </summary>
+        </member>
+        <member name="P:WebApp.Startup.Configuration">
+            <summary>
+            definição da variavel global de configuração.
+            </summary>
+        </member>
+        <member name="M:WebApp.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configuração principal.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:WebApp.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            COnfigura as interfaces e classes para serem utilizadas.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:WebApp.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            metodo chamado em tempo real - pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
         </member>
     </members>
 </doc>
