@@ -36,13 +36,8 @@ namespace WebApp
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-        
-
             services.AddMvc();
-            
-
             services.AddCors(options => { options.AddPolicy("AllowAllOrigins", b => { b.AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod(); }); });
-
             string connectionString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<AVAL.Infrastructure.Data.AvalContext>(options =>
@@ -50,11 +45,8 @@ namespace WebApp
             );
 
             services.AddTransient<ISegurancaService, SegurancaService>();
-
-
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
-
             services.AddTransient<ISegurancaService, SegurancaService>();
             services.AddTransient<ISegurancaRepository, SegurancaRepository>();
 
@@ -62,8 +54,6 @@ namespace WebApp
             {
                 c.SwaggerDoc("v1", new Info { Title = "API Produtos", Version = "v1" });
             });
-        
-
         }
         /// <summary>
         /// metodo chamado em tempo real - pipeline.
@@ -81,6 +71,7 @@ namespace WebApp
                 {
                     string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
                     c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "API PRODUTO");
+                    c.RoutePrefix = string.Empty;
                 });
             }
             else
@@ -88,14 +79,6 @@ namespace WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-            
-
         }
     }
 }
