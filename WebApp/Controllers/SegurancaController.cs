@@ -27,7 +27,6 @@ namespace WebApp.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GerarToken")]
-        [DisableCors]
         public IActionResult GerarToken([FromBody]Seguranca seguranca)
         {
             try

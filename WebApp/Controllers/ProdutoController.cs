@@ -1,4 +1,5 @@
 ﻿using Domain.Interface.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ namespace WebApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/produto")]
+  //  [EnableCors("AllowSpecificOrigin")]
     public class ProdutoController : Controller
     {
         private readonly IProdutoService _produtoService;
@@ -32,8 +34,8 @@ namespace WebApp.Controllers
             try
             {
                 //TODO: habilitar validação do token
-              //  if (!Util.ValidarToken(_segurancaService, Request))
-               //     return StatusCode(StatusCodes.Status203NonAuthoritative);
+                if (!Util.ValidarToken(_segurancaService, Request))
+                    return StatusCode(StatusCodes.Status203NonAuthoritative);
 
                 var produtos = _produtoService.Listar();
                 return StatusCode(StatusCodes.Status200OK, produtos);

@@ -5,6 +5,8 @@ using Domain.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +39,27 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddCors(options => { options.AddPolicy("AllowAllOrigins", b => { b.AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod(); }); });
+             services.AddCors(options => { options.AddPolicy("AllowAllOrigins", b => { b.AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod(); }); });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowOrigin",
+            //            builder => builder.WithOrigins("http://localhost:4200/")
+            //                              .WithMethods("GET"));
+            //});
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("_myAllowSpecificOrigins",
+            //    builder =>
+            //    {
+            //        builder.WithOrigins("http://localhost:4200",
+            //                            "http://localhost:4200/");
+            //    });
+            //});
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //  services.AddCors();
+
             string connectionString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<AVAL.Infrastructure.Data.AvalContext>(options =>
@@ -54,6 +76,8 @@ namespace WebApp
             {
                 c.SwaggerDoc("v1", new Info { Title = "API Produtos", Version = "v1" });
             });
+         
+
         }
         /// <summary>
         /// metodo chamado em tempo real - pipeline.
@@ -63,6 +87,9 @@ namespace WebApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSwagger();
+
+
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -79,6 +106,19 @@ namespace WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseHttpsRedirection();
+
+            app.UseMvc();
+            app.UseCors(option => option.AllowAnyOrigin());
+         //   app.UseCors(option => option.WithMethods("GET", "POST"));
+            app.UseCors(option => option.AllowAnyMethod());
+            //app.UseCors(option => option.WithHeaders("accept", "content-type", "origin"));
+            app.UseCors(option => option.AllowAnyHeader());
+            app.UseCors(option => option.AllowCredentials());
+            
+            // app.UseCors(option => option.AllowAnyOrigin());
+            //app.UseHttpsRedirection();
         }
     }
 }

@@ -16,4 +16,9 @@ namespace Domain.Entity
         public DateTime DataGeracao { get; set; }
 
     }
+    public class seg
+    {
+        [DataMember]
+        public string Token { get; set; }
+    }
 }
